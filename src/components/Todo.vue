@@ -1,6 +1,10 @@
 <template>
   <form @submit.prevent="addTodo">
-    <div v-if="error" class="error alert">{{error}}</div>
+    
+    <transition name="alert">
+    <div v-if="error" class="error alert"><p>{{error}}</p></div>
+    </transition>
+    
     <input type="text" v-model="todo">
     <br>
     <input type="submit" value="Add To Do">
@@ -66,10 +70,36 @@
     cursor: pointer;
   }
   .error{
-    padding: 15px 20px;
+    padding: 5px 20px;
     margin: 5px 0;
     background-color: crimson;
     color: white;
     border-radius: 10px
   }
+  
+  
+  @keyframes wobble{
+    0%{ opacity: 0; transform: translateY(-60px); }
+    50%{ opacity: 1; transform: translateY(0); }
+    60%{ transform: translateX(8px); }
+    70%{ transform: translateX(-8px); }
+    80%{ transform: translateX(8px); }
+    90%{ transform: translateX(-8px); }
+    100%{ transform: translateX(0); }
+  }
+  
+  .alert-enter-from{
+    opacity: 0;
+    transform: translateY(-60px);
+  }
+  .alert-enter-to{
+    opacity: 1;
+    transform: translateY(0);
+  }
+  
+  .alert-enter-active{
+    transition: all 1s ease;
+    animation: wobble 1s ease;
+  }
+
 </style>
