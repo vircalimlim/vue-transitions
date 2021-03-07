@@ -1,6 +1,11 @@
 <template>
   <form @submit.prevent="addTodo">
-    <div v-if="error" class="error alert">{{error}}</div>
+    
+  <transition name="fade">
+    <div v-if="error" class="error alert">
+         <p>{{error}}</p>
+    </div>
+  </transition>
     <input type="text" v-model="todo">
     <br>
     <input type="submit" value="Add To Do">
@@ -71,5 +76,32 @@
     background-color: crimson;
     color: white;
     border-radius: 10px
+  }
+  
+  /* transition to fade in */
+  .fade-enter-from{
+    opacity: 0;
+    transform: translateY(-60px);
+    
+  }
+  .fade-enter-to{
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .fade-enter-active{
+    transition: all .5s ease;
+  }
+  
+  /* transition to fade out */
+  .fade-leave-from{
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .fade-leave-to{
+    opacity: 0;
+    transform: translateY(-60px);
+  }
+  .fade-leave-active{
+    transition: all .5s ease;
   }
 </style>
