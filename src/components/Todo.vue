@@ -44,7 +44,8 @@
   }
 </script>
 
-<style scoped>
+<style >
+/* do not use scoped when doing animations it won't work*/
   form{
     text-align: center;
     padding: 5px;
@@ -78,28 +79,54 @@
   }
   
   
-  @keyframes wobble{
-    0%{ opacity: 0; transform: translateY(-60px); }
-    50%{ opacity: 1; transform: translateY(0); }
-    60%{ transform: translateX(8px); }
-    70%{ transform: translateX(-8px); }
-    80%{ transform: translateX(8px); }
-    90%{ transform: translateX(-8px); }
-    100%{ transform: translateX(0); }
-  }
   
-  .alert-enter-from{
+ /* .alert-enter-from{
     opacity: 0;
-    transform: translateY(-60px);
+    transform: translateX(-60px);
   }
   .alert-enter-to{
     opacity: 1;
-    transform: translateY(0);
-  }
+    transform: translateX(0);
+  }*/
   
   .alert-enter-active{
-    transition: all 1s ease;
-    animation: wobble 1s ease;
+   /* transition: all 1s ease; */
+    animation: wobbleIn 0.5s ease;
+  }
+  .alert-leave-active{
+    animation: wobbleOut 0.5s ease;
+  }
+  
+  @keyframes wobbleIn {
+    0% { transform: translateY(-60px); opacity: 0 }
+    50% { transform: translateY(0); opacity: 1 }
+    60% { transform: translateX(8px) }
+    70% { transform: translateX(-8px) }
+    80% { transform: translateX(4px) }
+    90% { transform: translateX(-4px) }
+    100% { transform: translateX(0) }
+  }
+  
+
+  @keyframes wobbleOut{
+    0%{
+      opacity: 1;
+    }
+    50%{
+      opacity: .8;
+    }
+    70%{
+      transform: translateX(60px);
+      opacity: .6;
+    }
+    80%{
+      transform: translateX(0);
+    }
+    100%{
+      opacity: 0;
+      transform: translateX(-60px);
+    }
+
   }
 
 </style>
