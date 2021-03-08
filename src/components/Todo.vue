@@ -4,9 +4,9 @@
     <input type="text" v-model="todo">
     <br>
     <input type="submit" value="Add To Do">
-    <div v-for="todoitem in todolist">
-      <p @click.self="removeItem">{{todoitem}}</p>
-    </div>
+    <ul>
+    <li v-for="todoitem in todolist" :key="todoitem" @click.self="removeItem">{{todoitem}}</li>
+    </ul>
   </form>
 </template>
 
@@ -71,5 +71,14 @@
     background-color: crimson;
     color: white;
     border-radius: 10px
+  }
+  li{
+    list-style: none;
+    padding: 20px 50px;
+    border: 1px solid gray;
+    border-radius: 20px;
+    margin: 10px 40px 10px 40px;
+  
+    
   }
 </style>
