@@ -1,13 +1,22 @@
 <template>
+  <div>
   <form @submit.prevent="addTodo">
+    <transition name="lists">
     <div v-if="error" class="error alert">{{error}}</div>
+    </transition>
     <input type="text" v-model="todo">
     <br>
     <input type="submit" value="Add To Do">
-    <div v-for="todoitem in todolist">
-      <p @click.self="removeItem">{{todoitem}}</p>
-    </div>
   </form>
+  
+    <div>
+    <transition-group tag="ul" name="lists">
+      <li>basketabll</li>
+      <li v-for="todoitem in todolist" :key="todoitem" @click.self="removeItem">{{todoitem}}</li>
+    </transition-group>
+    </div>
+    
+  </div>
 </template>
 
 <script>
@@ -40,7 +49,11 @@
   }
 </script>
 
-<style scoped>
+<style>
+*{
+  padding: 0;
+  margin: 0;
+}
   form{
     text-align: center;
     padding: 5px;
@@ -71,5 +84,57 @@
     background-color: crimson;
     color: white;
     border-radius: 10px
+  }
+  li{
+    list-style: none;
+    padding: 20px 50px;
+    border: 1px solid gray;
+    border-radius: 20px;
+    margin: 10px 40px 10px 40px;
+  
+    
+  }
+  .lists-enter-from{
+    opacity: 0;
+    transform: scale(.6);
+  }
+  .lists-enter-to{
+    opacity: 1;
+    transform: scale(1);
+  }
+  .lists-leave-from{
+    opacity: 1;
+    transform: scale(1);
+  }
+  .lists-leave-to{
+    opacity: .5;
+    transform: scale(.6);
+  }
+  
+  .lists-enter-active, .lists-leave-active{
+    transition: all .5s ease;
+    /*animation: ladder .5s ease;*/
+  }
+  
+  @keyframes ladder{
+    0%{
+      opacity: 0;
+      transform: translateY(-60px);
+    }
+    50%{
+      opacity: 1;
+      transform: translateY(0);
+      transform: scale(.2);
+    }
+  
+    80%{
+      transform: scale(.6);
+    }
+    90%{
+      transform: scale(.8);
+    }
+    100%{
+      transform: scale(1);
+    }
   }
 </style>
