@@ -1,12 +1,29 @@
 <template>
+  <transition name="title" appear>
+  <h1>Transitions</h1>
+  </transition>
   <form @submit.prevent="addTodo">
+    
+    <transition 
+    name="alert"
+    @before-enter="beforeEnter"
+    @enter="enter"
+    @after-enter="afterEnter"
+    @before-leave="beforeLeave"
+    @leave="leave"
+    @after-leave="afterLeave"
+    >
     <div v-if="error" class="error alert">{{error}}</div>
+    </transition>
+    
     <input type="text" v-model="todo">
     <br>
     <input type="submit" value="Add To Do">
-    <ul>
+    
+    <transition-group tag="ul" name="alert" appear>
     <li v-for="todoitem in todolist" :key="todoitem" @click.self="removeItem">{{todoitem}}</li>
-    </ul>
+    </transition-group>
+    
   </form>
 </template>
 
@@ -15,7 +32,7 @@
     data(){
       return{
         todo: '',
-        todolist: [],
+        todolist: ['basketball', 'programming'],
         error: ''
       }
     },
@@ -29,12 +46,36 @@
         this.todolist.push(this.todo)
         this.todo = ''
         }
-      },
+        },
       
       removeItem(e){
         e.target.remove()
         this.error = ''
-      }
+      },
+      
+        beforeEnter(e){
+          alert("before")
+        },
+        
+        enter(e){
+          alert("enter")
+        },
+        
+        afterEnter(e){
+          alert(e.style.backgroundColor = "skyblue")
+        },
+        
+        beforeLeave(e){
+          alert("before")
+        },
+        
+        leave(e){
+          alert("leave")
+        },
+        
+        afterLeave(e){
+          alert(e.style.backgroundColor = "crimson")
+        },
     }
     
   }
@@ -78,7 +119,28 @@
     border: 1px solid gray;
     border-radius: 20px;
     margin: 10px 40px 10px 40px;
+  }
   
+  .alert-enter-from, .alert-leave-to{
+    opacity: 0;
+    transform: translateX(-90px);
+  }
+  .alert-enter-to, .alert-leave-from{
+    opacity: 1;
+    transform: translateX(0);
     
+  }
+  .alert-enter-active, .alert-leave-active{
+    transition: all 2s ease;
+  }
+  
+  
+  
+  .title-enter-from{
+    opacity: 0;
+    transform: translateY(-80px);
+  }
+  .title-enter-active{
+    transition: all .6s ease;
   }
 </style>
