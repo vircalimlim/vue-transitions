@@ -10,8 +10,7 @@
   </form>
   
     <div>
-    <transition-group tag="ul" name="lists">
-      <li>basketabll</li>
+    <transition-group tag="ul" name="lists" appear>
       <li v-for="todoitem in todolist" :key="todoitem" @click.self="removeItem">{{todoitem}}</li>
     </transition-group>
     </div>
@@ -24,7 +23,7 @@
     data(){
       return{
         todo: '',
-        todolist: [],
+        todolist: ['basketball', 'programming'],
         error: ''
       }
     },
